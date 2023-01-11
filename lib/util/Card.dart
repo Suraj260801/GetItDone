@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key});
-
+  //const CategoryCard({super.key});
+  final Color color;
+  final String title_card;
+  const CategoryCard({required this.color,required this.title_card});
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -14,15 +16,15 @@ class CategoryCard extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          color: Colors.blueAccent,
+          color: color,
           child : Container(
             padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children:  [
                 Text(
-                  'Collage',
+                  title_card,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 22,

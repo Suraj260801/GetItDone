@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getitdone/util/Card.dart';
+import 'package:getitdone/util/BottomNavBar.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,6 +13,72 @@ class MyApp extends StatelessWidget {
   }
 }
 class MyHomePage extends StatelessWidget {
+  List<Widget> pages = [
+    Container(
+        padding: const EdgeInsets.all(5),
+        child: SingleChildScrollView (
+          child :Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0,0,0,5),
+                  child : const Text(
+                      "Hi, Sachin",
+                      style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Rajdhani'
+                      )
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0,0,0,5),
+                  child : const Text(
+                      "this is your to do list",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Rajdhani'
+                      )
+                  ),
+                ),/*
+                  Container(
+                    padding: EdgeInsets.all(3),
+                    width: 200,
+                    height: 50,
+                    child: Buttonico
+                    const Card(
+                      elevation: 0,
+                      color: Colors.indigoAccent,
+                      child: Center(
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size:30,
+                          )
+                      ),
+
+                    ),
+                  ),*/
+                Row(
+                  children: [
+                    Flexible(child: CategoryCard(color: Colors.redAccent,title_card: "Collage",)),
+                    Flexible(child: CategoryCard(color: Colors.blueAccent,title_card: "Work",))
+                  ],
+                ),
+                Row(
+                  children: [
+                    Flexible(child: CategoryCard(color: Colors.pinkAccent,title_card: "Traveling")),
+                    Flexible(child: CategoryCard(color: Colors.purpleAccent,title_card: "Other"))
+                  ],
+                )
+              ]
+          ),
+        )
+
+    ),
+    Text("0"),
+    Text("1")
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,77 +104,12 @@ class MyHomePage extends StatelessWidget {
         centerTitle: true,
       ),
 
-      body:
-          Container(
-            padding: const EdgeInsets.all(5),
-            child: SingleChildScrollView (
-              child :Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(0,0,0,5),
-                    child : const Text(
-                        "Hi, Sachin",
-                        style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Rajdhani'
-                        )
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(0,0,0,5),
-                    child : const Text(
-                        "this is your to do list",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Rajdhani'
-                        )
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(3),
-                    width: 200,
-                    height: 50,
-                    child:  const Card(
-                      elevation: 0,
-                      color: Colors.purple,
-                      child: Center(
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size:30,
-                          )
-                      ),
-
-                    ),
-                  ),
-                  for(int i=0;i<3;++i)
-                  Row(
-                    children: [
-                      for(int j=0;j<2;++j)
-                      Flexible(child: CategoryCard()),
-                    ],
-                  )
-              ]
-              ),
-            )
-
-          ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.access_time_outlined),
-            label: 'ToDo',
-          ),
-        ],
-        selectedItemColor: Colors.blueAccent,
-
+      body:IndexedStack(
+        index: 0,
+        children: pages,
       ),
+
+      bottomNavigationBar: BottomBar()
     );
   }
 }
