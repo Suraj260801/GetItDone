@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:getitdone/util/Card.dart';
 import 'package:getitdone/util/BottomNavBar.dart';
@@ -8,77 +10,39 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: SplashScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+        Duration(seconds: 3),
+            () => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+            builder: (BuildContext context) => MyHomePage())));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Icon(Icons.ice_skating),
+      ),
+    );
+  }
+}
+
 class MyHomePage extends StatelessWidget {
-  List<Widget> pages = [
-    Container(
-        padding: const EdgeInsets.all(5),
-        child: SingleChildScrollView (
-          child :Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0,0,0,5),
-                  child : const Text(
-                      "Hi, Sachin",
-                      style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Rajdhani'
-                      )
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0,0,0,5),
-                  child : const Text(
-                      "this is your to do list",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Rajdhani'
-                      )
-                  ),
-                ),/*
-                  Container(
-                    padding: EdgeInsets.all(3),
-                    width: 200,
-                    height: 50,
-                    child: Buttonico
-                    const Card(
-                      elevation: 0,
-                      color: Colors.indigoAccent,
-                      child: Center(
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size:30,
-                          )
-                      ),
-
-                    ),
-                  ),*/
-                Row(
-                  children: [
-                    Flexible(child: CategoryCard(color: Colors.redAccent,title_card: "Collage",)),
-                    Flexible(child: CategoryCard(color: Colors.blueAccent,title_card: "Work",))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(child: CategoryCard(color: Colors.pinkAccent,title_card: "Traveling")),
-                    Flexible(child: CategoryCard(color: Colors.purpleAccent,title_card: "Other"))
-                  ],
-                )
-              ]
-          ),
-        )
-
-    ),
-    Text("0"),
-    Text("1")
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,23 +57,111 @@ class MyHomePage extends StatelessWidget {
             size: 35,
           ),
         ),
-      /*  title: Text(
-          'Get it Done',
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'Rajdhani'),
-        ),*/
-        centerTitle: true,
       ),
 
-      body:IndexedStack(
-        index: 0,
-        children: pages,
-      ),
+      body:Container(
+          padding: const EdgeInsets.all(5),
+          child:  Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(0,0,0,5),
+                    child : const Text(
+                        "Hi, Sachin",
+                        style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Rajdhani'
+                        )
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(0,0,0,5),
+                    child : const Text(
+                        "this is your to do list",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Rajdhani'
+                        )
+                    ),
+                  ),
+                 AddButton(),
+                  SizedBox(height: 10,),
+                Expanded(
+                    child: SingleChildScrollView(
+                    child :Column(
+                      children: [
+                        Row(
+                          children: const [
+                            Flexible(child: CategoryCard(color: Colors.redAccent,titleCard: "Collage",)),
+                            Flexible(child: CategoryCard(color: Colors.blueAccent,titleCard: "Work",))
+                          ],
+                        ),
+                        Row(
+                          children: const [
+                            Flexible(child: CategoryCard(color: Colors.redAccent,titleCard: "Collage",)),
+                            Flexible(child: CategoryCard(color: Colors.blueAccent,titleCard: "Work",))
+                          ],
+                        ),
+                        Row(
+                          children: const [
+                            Flexible(child: CategoryCard(color: Colors.pinkAccent,titleCard: "Traveling")),
+                            Flexible(child: CategoryCard(color: Colors.purpleAccent,titleCard: "Other"))
+                          ],
+                        ),
 
-      bottomNavigationBar: BottomBar()
+
+                      ],
+                    )
+                )
+                ),
+                /*  Expanded(child:  ListView.separated(
+                    itemCount: 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(title: Text("hello"));
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(height: 8.0);
+                    },
+                  ))*/
+                ],
+
+            ),
+          ),
+
+
+      bottomNavigationBar: BottomBar(),
+
     );
   }
 }
+
+class AddButton extends StatelessWidget {
+  const AddButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return   Opacity(
+        opacity: 0.7,
+        child: GestureDetector(
+          onTap: (){
+            print("hi");
+          },
+          child:Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Image(
+                image: AssetImage('assets/icons/add.png'),
+                height: 60,
+                width: 60,
+              ),
+              Text('Add Lists'),
+            ],
+        )
+        )
+    );
+  }
+}
+
+

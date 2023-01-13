@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 class CategoryCard extends StatelessWidget {
   //const CategoryCard({super.key});
   final Color color;
-  final String title_card;
-  const CategoryCard({required this.color,required this.title_card});
+  final String titleCard;
+  const CategoryCard({super.key, required this.color,required this.titleCard});
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      padding: EdgeInsets.all(3),
-      width: 200,
-      height: 200,
-      child:  Card(
+    return  InkWell(
+        onTap: (){
+          print(titleCard);
+        },
+        child : Container(
+        padding: EdgeInsets.all(3),
+        width: 200,
+        height: 200,
+        child:  Card(
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -24,16 +28,16 @@ class CategoryCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children:  [
                 Text(
-                  title_card,
-                  style: TextStyle(
+                  titleCard,
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 22,
                     fontFamily: 'Rajdhani'
                   ),
                 ),
-                SizedBox(height: 10,),
-                Text(
-                  'This is Description of Category',
+                const SizedBox(height: 10,),
+                const Text(
+                  '0 of 10 done',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -43,7 +47,8 @@ class CategoryCard extends StatelessWidget {
               ],
             ),
           )
-      ),
+        ),
+        )
     );
   }
 }
